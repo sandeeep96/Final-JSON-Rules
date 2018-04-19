@@ -1,0 +1,176 @@
+/* this file will be extracted to main dist folder and is imported in index.html */
+
+
+/* This file is for setting global styles  */
+
+@import 'variables';
+@import 'mdl-lite';
+@import 'colors';
+body{
+    background: $bodybg;
+    font-size: 13px;  
+}
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+  }
+/***************************
+Pink button CSS
+****************************/
+.button-pink.mdl-button{
+    background: $pink;
+    border: 1px solid $pink;
+    color: $white;
+    font-size: 13px;
+    @include border-radius(10px);
+    text-transform: capitalize;
+    }
+    .button-pink.mdl-button:active{
+        outline: none;
+    }
+    /***************************************************
+MDL select dropdown fix
+***************************************************/
+.mdl-select{
+    display: block;
+    text-align: left; 
+    .mdl-list__item-primary-content{
+        font-size: 13px;
+    }
+    .mdl-list__item{
+        padding: 7px 13px;
+        min-height: 30px;
+    }
+    .mdl-checkbox.is-upgraded {
+        padding-left: 23px;
+    }
+    .mdl-checkbox__box-outline{
+        width: 14px;
+    height: 14px;
+    }
+     .mdl-textfield__input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+    padding-right: 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+}
+ .mdl-list {
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0;
+}
+.mdl-select__toggle {
+    cursor: pointer;
+    float: right;
+    margin-top: -1.75rem;
+}
+.mdl-popover {
+    background: $white;
+    border: none;
+    display: block;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    position: absolute;
+    z-index: 1000;
+}
+.mdl-popover.direction-up {
+    bottom: 22px;
+}
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+    border: 2px solid $violet ;
+}
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+    background: $violet ;
+}
+.mdl-list__item {
+    cursor: pointer;
+} 
+.mdl-list__item.is-active {
+    color: $violet ;
+    background-color: $lightgreybg;
+}
+}
+.mdl-shadow--2dp {
+    box-shadow: 0px 0px 46px 15px rgba(88, 94, 123, 0.1), 0 3px 1px -2px rgba(88, 94, 123, 0), 0 1px 5px 0 rgba(88, 94, 123, 0);
+}
+.whitebg{
+    background: $white;
+}
+.img-section{ 
+    position: relative;
+    .spline{
+        background: $logotext;
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        position: absolute;
+        left: 114px; 
+    }
+    a{
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+    img.img-fluid{
+        width:20%;
+        margin-right: 15px;
+    }
+    span{
+        display: inline-block;
+        color:$logotext;
+        position: relative;
+    top: 6px;
+    }
+}
+.mdl-layout__header{
+    background: $headerbg;
+    .username{
+        color:$logotext;
+        margin-top: 15px;
+    margin-right: 15px;
+    }
+    .mdl-textfield__input{
+        border-bottom: 1px solid $logotext;
+    }
+    .mdl-textfield__label{
+        color:$logotext;
+    }
+    .dropdown{
+        width: 100px;
+    }
+}
+.footer{
+    img{
+        width:4%;
+    }
+}
+.body-content{
+    h1{
+        color: $black;
+        font-size: 24px;
+    } 
+    .table{
+        td{
+            padding: 5px;
+        }
+        .mdl-textfield{
+            width: auto; 
+            padding: 5px 0;
+        }
+        .mdl-textfield__label{
+            top: 11px;
+        }
+        .mdl-textfield__label:after{
+            bottom: 4px;
+        }
+    }
+
+}

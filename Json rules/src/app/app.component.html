@@ -1,0 +1,54 @@
+<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+    <mdl-layout-header>
+        <mdl-layout-header-row>
+            <mdl-layout-title>
+                <div class="img-section">
+                    <a routerLink="/home">
+                        <img class="img-fluid" src="../assets/img/oflow.png" alt="IFF" />
+                        <span class="spline"></span>
+                        <span>Tilburg Fragrances</span>
+                    </a>
+                </div>
+            </mdl-layout-title>
+            <mdl-layout-title>
+                    <mdl-textfield type="text" label="Type your search" [(ngModel)]="text3" ></mdl-textfield>
+                    
+            </mdl-layout-title>
+            <mdl-layout-spacer></mdl-layout-spacer>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <p class="username">Adriana Lima</p>
+                <img [src]="userPhotoUrl" class="avatar_photo" onerror="this.src='../assets/img/default_user.png'" width="45" height="45" alt="User" />
+                <button mdl-button #btn1="mdlButton" (click)="m1.toggle($event, btn1)" mdl-button-type="icon" mdl-ripple><mdl-icon>more_vert</mdl-icon></button>
+                <mdl-menu #m1="mdlMenu" mdl-menu-position="bottom-right" class="top-menu">
+                    <mdl-menu-item mdl-ripple (click)="action()">User Settings</mdl-menu-item>
+                    <mdl-menu-item mdl-ripple mdl-menu-item-full-bleed-divider routerLink="/about"> About</mdl-menu-item>
+                    <mdl-menu-item mdl-ripple (click)="logOut()">Sign Out</mdl-menu-item>
+                </mdl-menu>
+            </nav>
+        </mdl-layout-header-row>
+    </mdl-layout-header>
+    <mdl-layout-drawer>
+        <div class="profile-bar">
+            <div class="img-section">
+                <img [src]="userPhotoUrl" class="avatar_photo" onerror="this.src='../assets/img/default_user.png'" width="35" height="35" alt="User" />
+            </div>
+            <p>Adriana Lima</p>
+        </div>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" routerLink="/home">Home</a>
+            <a class="mdl-navigation__link" routerLink="/about">Help</a>
+            <a class="mdl-navigation__link" routerLink="/rules">Rules POC</a>
+        </nav>
+    </mdl-layout-drawer>
+    <mdl-layout-content>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+        <div class="container-fluid footer">
+            <div class="row">
+                <div class="col-lg-12 text-center py-4">Powered by <img src="./assets/img/footer-ifflogo.png" border="0" /></div>
+            </div>   
+        </div>
+    </mdl-layout-content>
+</mdl-layout>

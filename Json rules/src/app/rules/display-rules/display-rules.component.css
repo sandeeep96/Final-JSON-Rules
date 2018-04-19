@@ -1,0 +1,44 @@
+button { 
+    margin: 20px;
+}
+
+div {
+    margin: 20px;
+}
+.select-width {
+    width: 180px;
+    padding-right: 10px;
+}
+
+.icon-align {
+    vertical-align: text-bottom;
+    font-size: 10px;
+}
+.textarea {
+    /* background: url(images/benice.png) center center no-repeat; This ruins default border */
+    margin: 30px;
+    border: 1px solid #888; 
+  }
+  .point{
+    cursor: pointer;
+}
+/* table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #ccd;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+tr:nth-child(odd) {
+    background-color: #ddeedd;
+} */

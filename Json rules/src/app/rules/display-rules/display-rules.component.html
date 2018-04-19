@@ -1,0 +1,131 @@
+<!-- Raised button with ripple -->
+
+<hr>
+<br>
+<!--Table-->
+<table class="table table-bordered table-responsive-md">
+
+    <!--Table head-->
+    <thead>
+        <tr>
+            <th class="pr-md-3 pr-5">
+                <mdl-checkbox [value]="false" (click)="onTotalCheck(totalcheck.value)" #totalcheck></mdl-checkbox>
+            </th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Result</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <!--Table head-->
+
+    <!--Table body-->
+    <tbody>
+        <tr *ngFor="let eachRule of AllRulesInfo; let i = index">
+            <th scope="row" class="pr-md-3 pr-5">
+                <mdl-checkbox [(ngModel)]="eachRule.isSelected"></mdl-checkbox>
+            </th>
+            <td>{{eachRule?.RuleId}}</td>
+            <td>{{eachRule?.RuleName}}</td>
+            <td>{{eachRule?.Result}}</td>
+            <td><a class="point" (click)="onEdit(i)">Edit</a></td>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+    <textarea class="textarea" rows="4" cols="50" placeholder="Paste the JSON data here..." #textarea></textarea>
+    <div class="excbtn">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onExecute(textarea.value)" [disabled]="canExecuteButtonBeDisabled()">
+            Execute
+        </button>
+    </div>
+    <div id="result">
+    </div>
+
+</div>
+
+<hr>
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onAddRow()">
+    Add a Rule
+</button>
+
+<div [formGroup]="editForm" *ngIf="editForm">
+    <mdl-textfield class="select-width" label="Rule Name" name="Rule Name" type="text" formControlName="ruleName" floating-label></mdl-textfield>
+    <mdl-textfield class="select-width" label="Rule Result" name="Rule Result" type="text" formControlName="ruleResult" floating-label></mdl-textfield>
+    <div formArrayName="rules" *ngFor="let element of editForm.get('rules').controls; let i = index">
+        <div [formGroupName]="i" class="row">
+            <div>
+                <i style="font-size:24px;cursor: pointer;" class="fa fa-close icon-align" (click)="onRemoveRow(i)"></i>
+            </div>
+            <mdl-select class="select-width" label="Table Name" formControlName="tableName" floating-label (change)="onSelect(i,$event)">
+                <mdl-option *ngFor="let item of tableNames" [value]="item.Description">{{item.Description}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="tableField" label="Table Feild" floating-label>
+                <mdl-option *ngFor="let item of tableFeildsOfEachRow[i]?.feilds" [value]="item.Field">{{item.Field}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="operator" label="Operator" floating-label>
+                <mdl-option *ngFor="let item of operators" [value]="item.Symobol">{{item.Symobol}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="operandDatatype" label="Operand Datatype" floating-label>
+                <mdl-option *ngFor="let item of operandDatatypes" [value]="item.Type">{{item.Type}}</mdl-option>
+            </mdl-select>
+            <mdl-textfield class="select-width" label="Operand Value" name="Operand Value" type="text" formControlName="operandValue"
+                floating-label></mdl-textfield>
+        </div>
+
+    </div>
+    <button *ngIf="!fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onSubmitRules()" [disabled]="form.invalid">
+        Submit Rules
+    </button>
+    <button *ngIf="fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onEditRules()" [disabled]="editForm.invalid">
+        Update Rules
+    </button>
+    <button *ngIf="!fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onClearRules()">
+        Clear Rules
+    </button>
+    <button *ngIf="fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onCancelEdit()">
+        Cancel Edit
+    </button>
+</div>
+<div [formGroup]="form" *ngIf="!editForm">
+    <mdl-textfield class="select-width" label="Rule Name" name="Rule Name" type="text" formControlName="ruleName" floating-label></mdl-textfield>
+    <mdl-textfield class="select-width" label="Rule Result" name="Rule Result" type="text" formControlName="ruleResult" floating-label></mdl-textfield>
+    <div formArrayName="rules" *ngFor="let element of form.get('rules').controls; let i = index">
+        <div [formGroupName]="i" class="row">
+            <div>
+                <i style="font-size:24px;cursor: pointer;" class="fa fa-close icon-align" (click)="onRemoveRow(i)"></i>
+            </div>
+            <mdl-select class="select-width" label="Table Name" formControlName="tableName" floating-label (change)="onSelect(i,$event)">
+                <mdl-option *ngFor="let item of tableNames" [value]="item.Description">{{item.Description}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="tableField" label="Table Feild" floating-label>
+                <mdl-option *ngFor="let item of tableFeildsOfEachRow[i]?.feilds" [value]="item.Field">{{item.Field}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="operator" label="Operator" floating-label>
+                <mdl-option *ngFor="let item of operators" [value]="item.Symobol">{{item.Symobol}}</mdl-option>
+            </mdl-select>
+            <mdl-select class="select-width" formControlName="operandDatatype" label="Operand Datatype" floating-label>
+                <mdl-option *ngFor="let item of operandDatatypes" [value]="item.Type">{{item.Type}}</mdl-option>
+            </mdl-select>
+            <mdl-textfield class="select-width" label="Operand Value" name="Operand Value" type="text" formControlName="operandValue"
+                floating-label></mdl-textfield>
+        </div>
+
+    </div>
+    <button *ngIf="!fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onSubmitRules()" [disabled]="form.invalid">
+        Submit Rules
+    </button>
+    <button *ngIf="fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onEditRules()" [disabled]="editForm.invalid">
+        Update Rules
+    </button>
+    <button *ngIf="!fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onClearRules()">
+        Clear Rules
+    </button>
+    <button *ngIf="fromEdit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" (click)="onCancelEdit()">
+        Cancel Edit
+    </button>
+</div>
+
+<!-- <mdl-select formControlName="personId">
+    <mdl-option *ngFor="let p of people" [value]="p.id" [disabled]="p.disabled">{{p.name}}</mdl-option>
+</mdl-select> -->

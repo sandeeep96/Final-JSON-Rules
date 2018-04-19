@@ -1,0 +1,8 @@
+# Remove node_modules commit
+**/node_modules
+
+# Remove dist folder from commit
+**/dist
+
+# Remove debug log
+*.log

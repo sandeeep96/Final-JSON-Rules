@@ -1,0 +1,112 @@
+<div class="col-md-12" style="overflow-x: scroll;">
+    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp mt-2">
+        <thead>
+            <tr>
+                <th>SalesOrder</th>
+                <th>Line</th>
+                <th>Delivery</th>
+                <th>SalesGrp</th>
+                <th>MatAvDt</th>
+                <th>DelivGIDate</th>
+                <th>DelCrStockOrd</th>
+                <th>SoldtoCust</th>
+                <th>Material</th>
+                <th>PONumber</th>
+                <th>POStat</th>
+                <th>LORCode</th>
+                <th>Stat</th>
+                <th>Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of results">
+                <td> {{ row.SalesOrder }} </td>
+                <td> {{ row.Line }} </td>
+                <td> {{ row.Delivery }} </td>
+                <td> {{ row.SalesGrp }} </td>
+                <td> {{ row.MatAvDt }} </td>
+                <td> {{ row.DelivGIDate }} </td>
+                <td> {{ row.DelCrStockOrd }} </td>
+                <td> {{ row.SoldtoCust }} </td>
+                <td> {{ row.Material }} </td>
+                <td> {{ row.PONumber }} </td>
+                <td> {{ row.POStat }} </td>
+                <td> {{ row.LORCode }} </td>
+                <td> {{ row.Stat }} </td>
+                <td> {{ row.Issue }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="text-right mt-3">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" (click)="getCoidData()">
+        Get Data
+    </button>
+</div>
+<!-- <div>
+    <table id="table1">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select name="" id="">
+                        <option value="purchase order">purchase order</option>
+                        <option value="Order Details">Order Details</option>
+                        <option value="">test</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="">
+                        <option value="Field-1">Field-1</option>
+                        <option value="Field-2">Field-2</option>
+                        <option value="Field-3">Field-3</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="" id="">
+                        <option value="IN">In</option>
+                        <option value="Greater Than"> > </option>
+                        <option value="Equal"> = </option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>
+                    <button type="">Edit</button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <table id="table">
+
+    </table>
+
+    <button type="button" (click)='addRow()'>Add Rule</button>
+</div> -->
+
+
+<div>
+    <display-rules></display-rules>
+</div>
