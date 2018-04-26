@@ -85,4 +85,131 @@ export class AppData {
         }
         return theString;
     }
+    public getData(qry: string, prm: any[]): Observable<any> {
+        let heads = {
+            "Cache-control": 'no-cache,no-store',
+            'Expires': '0',
+            'Pragma': 'no-cache',
+            'x-access-token': this.getToken(),
+            'x-userid': this.getId()
+        };
+        let options = { headers: heads, withCredentials: true };
+        let aQry = this.formatQuery(qry, prm);
+        return this.httpClient.get(aQry, options);
+    }
+
+    public getDataCache(qry: string, prm: any[]): Observable<any> {
+        let heads = {
+            'x-access-token': this.getToken(),
+            'x-userid': this.getId()
+        };
+        let options = { headers: heads, withCredentials: true };
+        let aQry = this.formatQuery(qry, prm);
+        if (this.appState.get(aQry)) {
+            return Observable.of(this.appState.get(aQry));
+        } else {
+            return this.httpClient.get(aQry, options)
+                .map((response) => {
+                    this.appState.set(aQry, response);
+                    return response;
+                });
+        }
+
+    }
+
+    public getToken() {
+        return this.oAuthSvc.getIdToken();
+    }
+
+    public getId() {
+        return this.appState.get(this.appState.stateId.userInfo) ? this.appState.get(this.appState.stateId.userInfo).Id : 'mxj1234';
+    }
+
+    public getSAPData(qry: string, prm: string[]): Observable<any> {
+        let heads = {
+            'accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'x-access-token': this.getToken(),
+            'Authorization': 'Basic QUxFUkVNT1RFOlN5c2FkbWluMQ==',
+            'x-userid': this.getId()
+        };
+        let options = { headers: heads, withCredentials: true };
+        let aQry = this.formatQuery(qry, prm);
+        let response = this.httpClient.get(aQry, options);
+        this.appState.set(aQry, response);
+        return response;
+    }
+
+    public getSAPDataCache(qry: string, prm: string[]): Observable<any> {
+        let heads = {
+            'accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'x-access-token': this.getToken(),
+            'Authorization': 'Basic QUxFUkVNT1RFOlN5c2FkbWluMQ=='
+        };
+        let options = { headers: heads, withCredentials: true };
+        let aQry = this.formatQuery(qry, prm);
+        if (this.appState.get(aQry)) {
+            return Observable.of(this.appState.get(aQry));
+        } else {
+            let response = this.httpClient.get(aQry, options);
+            this.appState.set(aQry, response);
+            return response;
+        }
+    }
+    public getUrl(qry: string, prm: any[]) {
+        let index = qry.indexOf('?');
+        qry += index === -1 ? '?token=' + this.getToken() :
+            '&token=' + this.getToken() + '&x-userid=' + this.getId();
+        return this.formatQuery(qry, prm);
+    }
+
+    public getUrlWithoutToken(qry: string, prm: any[]) {
+        // let index = qry.indexOf('?');
+        // qry += index === -1 ? '?token=' + this.getToken() :
+        //     '&token=' + this.getToken();
+        return this.formatQuery(qry, prm);
+    }
+
+    public getImageUrl(qry: string, prm: any[]) {
+        return this.formatQuery(qry, prm);
+    }
+    public postToSap(qry: string, prm: any[], data: any): Observable<any> {
+
+        let sapHeaders = {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': 'Fetch',
+            'Accept': 'application/json'
+        };
+        let options = { headers: sapHeaders };
+        let sapUrl = AppSettings.AppEnvironment === 'dev' ?
+            this.url.R3TokenUrl : 'http://dev-puma.iff.com/_sapdgw/sap/opu/odata/sap/ZR3_MASTER_DATA_SRV/';
+        // let aQry = this.formatQuery(tokenUrl, []);
+        return this.httpClient.get(sapUrl, { headers: sapHeaders, observe: 'response' })
+            .switchMap((result: any) => {
+                let sapPostHeaders = {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': result.headers.get("x-csrf-token"),
+                    'Accept': 'application/json',
+                    'x-access-token': this.getToken()
+                };
+                let postoptions = { headers: sapPostHeaders };
+                let aQry = this.formatQuery(qry, prm);
+                return this.httpClient.post(aQry, data, postoptions);
+            });
+    }
+    public deleteData(qry: string, prm: any[]): Observable<any> {
+        let heads = {
+            "Cache-control": 'no-cache,no-store',
+            'Expires': '0',
+            'Pragma': 'no-cache',
+            'x-access-token': this.getToken(),
+            'x-userid': this.getId()
+        };
+        let options = { headers: heads, withCredentials: true };
+        let aQry = this.formatQuery(qry, prm);
+        return this.httpClient.delete(aQry, options);
+    }
 }
